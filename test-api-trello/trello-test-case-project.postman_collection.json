@@ -1,0 +1,374 @@
+{
+  "info": {
+    "_postman_id": "c4547436-1a5b-4727-82b1-3a1760bb7865",
+    "name": "trello-test-case-project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31609832"
+  },
+  "item": [
+    {
+      "name": "boards",
+      "item": [
+        {
+          "name": "create boards",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "var jsonData = pm.response.json();\r",
+                  "\r",
+                  "if (jsonData.id) {\r",
+                  "    pm.collectionVariables.set(\"boardId\", jsonData.id);\r",
+                  "    console.log(\"Board ID \" + jsonData.id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/boards/?name=Trello Automation Project&key={{api_key}}&token={{api_token}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "boards",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Trello Automation Project"
+                },
+                {
+                  "key": "key",
+                  "value": "{{api_key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{api_token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();\r",
+                  "if (jsonData.id) {\r",
+                  "    pm.collectionVariables.set(\"listId\", jsonData.id);\r",
+                  "    console.log(\"List ID: \" + jsonData.id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lists?name=Testing Tasks&idBoard={{boardId}}&key={{api_key}}&token={{api_token}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lists"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Testing Tasks"
+                },
+                {
+                  "key": "idBoard",
+                  "value": "{{boardId}}"
+                },
+                {
+                  "key": "key",
+                  "value": "{{api_key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{api_token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create card",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "if (jsonData.id) {\r",
+                  "    pm.collectionVariables.set(\"cardId\", jsonData.id);\r",
+                  "    console.log(\"Card Created Successfully! ID: \" + jsonData.id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cards?idList={{listId}}&name=Fix API Bug testing&desc=Check the response status&key={{api_key}}&token={{api_token}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cards"
+              ],
+              "query": [
+                {
+                  "key": "idList",
+                  "value": "{{listId}}"
+                },
+                {
+                  "key": "name",
+                  "value": "Fix API Bug testing"
+                },
+                {
+                  "key": "desc",
+                  "value": "Check the response status"
+                },
+                {
+                  "key": "key",
+                  "value": "{{api_key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{api_token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Card",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 200 - Update Successful\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Card name is updated correctly\", function () {\r",
+                  "    pm.expect(jsonData.name).to.eql(\"Fixed: API Bug Verified\");\r",
+                  "});\r",
+                  "\r",
+                  "console.log(\"✅ Card Updated! New Name: \" + jsonData.name);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"CRITICAL: Fix Login API Validation\",\r\n    \"desc\": \"The API should not accept empty strings in the username field. Tested by QA Team.\",\r\n    \"due\": \"2026-04-05T12:00:00.000Z\",\r\n    \"pos\": \"top\",\r\n    \"dueComplete\": false,\r\n\r\n    \"cover\": {\r\n        \"color\": \"green\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cards/{{cardId}}?name=Fixed: API Bug Verified&closed=false&key={{api_key}}&token={{api_token}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cards",
+                "{{cardId}}"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Fixed: API Bug Verified"
+                },
+                {
+                  "key": "closed",
+                  "value": "false"
+                },
+                {
+                  "key": "key",
+                  "value": "{{api_key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{api_token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Card",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 - Card Deleted Successfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "console.log(\"Card id \" + pm.collectionVariables.get(\"cardId\") + \" Deleted.\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cards/{{cardId}}?key={{api_key}}&token={{api_token}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cards",
+                "{{cardId}}"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{api_key}}"
+                },
+                {
+                  "key": "token",
+                  "value": "{{api_token}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "// // 1. التحقق من نجاح العملية (Status Code 200)\r",
+          "// pm.test(\"Board Created Successfully\", function () {\r",
+          "//     pm.response.to.have.status(200);\r",
+          "// });\r",
+          "\r",
+          "// // 2. استخراج الـ ID من رد الـ API\r",
+          "// var responseData = pm.response.json();\r",
+          "// var newBoardId = responseData.id;\r",
+          "\r",
+          "// // 3. تخزين الـ ID في الـ Collection Variables\r",
+          "// if (newBoardId) {\r",
+          "//     pm.collectionVariables.set(\"boardId\", newBoardId);\r",
+          "//     console.log(\"✅ تم حفظ Board ID الجديد: \" + newBoardId);\r",
+          "// }\r",
+          "\r",
+          "// // 4. تجهيز بيانات لملف الـ Excel الخاص بك (طباعة في الـ Console)\r",
+          "// console.log(\"--- Data for your Excel ---\");\r",
+          "// console.log(\"TestCase Id: TC-CREATE-BOARD-01\");\r",
+          "// console.log(\"Actual Results: \" + responseData.name + \" created with ID \" + newBoardId);"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "api_token",
+      "value": ""
+    },
+    {
+      "key": "api_key",
+      "value": ""
+    },
+    {
+      "key": "boardId",
+      "value": ""
+    },
+    {
+      "key": "listId",
+      "value": ""
+    },
+    {
+      "key": "cardId",
+      "value": ""
+    }
+  ]
+}
