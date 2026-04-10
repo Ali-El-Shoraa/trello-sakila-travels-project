@@ -48,5 +48,10 @@ The following scenarios were automated and documented in the test report:
 
 ---
 
-**Developed by:** [Your Name]  
+## Author
+- Ali El-Shoraa
+
+## Contributors
+- Nourhan
+  
 **Date:** March 2026
