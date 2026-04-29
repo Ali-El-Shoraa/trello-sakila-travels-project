@@ -1,0 +1,398 @@
+{
+  "info": {
+    "_postman_id": "202d4341-17f9-4983-b51a-e4b1c5cb21a6",
+    "name": "Graduation Project Trello Mohamed Galal",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52835910",
+    "_collection_link": "https://go.postman.co/collection/52835910-202d4341-17f9-4983-b51a-e4b1c5cb21a6?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Board",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.globals.set(\"Project-1 Board-ID\", pm.response.json().id );\r",
+              "pm.globals.set(\"API-Key\", \"026aee6d52276dc1a159029c4d39a708\");\r",
+              "pm.globals.set(\"API-Token\", \"ATTA596e8356430d25566b4931be2225a8937dcc890f9e0d0206519d05fb46c1aea309A3499F\");"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://api.trello.com/1/boards/?name=Project-1&key={{API-Key}}&token={{API-Token}}",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "boards",
+            ""
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Project-1"
+            },
+            {
+              "key": "key",
+              "value": "{{API-Key}}"
+            },
+            {
+              "key": "token",
+              "value": "{{API-Token}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create a Label on a Board",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://api.trello.com/1/boards/{{Project-1 Board-ID}}/labels?name=color1&color=red&key={{API-Key}}&token={{API-Token}}",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "boards",
+            "{{Project-1 Board-ID}}",
+            "labels"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "color1"
+            },
+            {
+              "key": "color",
+              "value": "red"
+            },
+            {
+              "key": "key",
+              "value": "{{API-Key}}"
+            },
+            {
+              "key": "token",
+              "value": "{{API-Token}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Labels on a Board",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.trello.com/1/boards/{{Project-1 Board-ID}}/labels?key={{API-Key}}&token={{API-Token}}",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "boards",
+            "{{Project-1 Board-ID}}",
+            "labels"
+          ],
+          "query": [
+            {
+              "key": "key",
+              "value": "{{API-Key}}"
+            },
+            {
+              "key": "token",
+              "value": "{{API-Token}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Board With not Valid Api & Key",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://api.trello.com/1/boards/?name=Project-1&key=026aee6d52276dc1a159029c4d39a&token=ATTA596e8356430d25566b4931be2225a8937dcc890f9e0d0206519d05fb46c1aea309A34994",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "boards",
+            ""
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Project-1"
+            },
+            {
+              "key": "key",
+              "value": "026aee6d52276dc1a159029c4d39a"
+            },
+            {
+              "key": "token",
+              "value": "ATTA596e8356430d25566b4931be2225a8937dcc890f9e0d0206519d05fb46c1aea309A34994"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.trello.com/1/boards/158215522/labels?name=color2&color=red&key={{API-Key}}&token={{API-Token}}",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "boards",
+            "158215522",
+            "labels"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "color2"
+            },
+            {
+              "key": "color",
+              "value": "red"
+            },
+            {
+              "key": "key",
+              "value": "{{API-Key}}"
+            },
+            {
+              "key": "token",
+              "value": "{{API-Token}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create a List on a Board",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api.trello.com/1/boards/{{Project-1 Board-ID}}/lists?name=Inprogress&key={{API-Key}}&token={{API-Token}}",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "boards",
+            "{{Project-1 Board-ID}}",
+            "lists"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Inprogress"
+            },
+            {
+              "key": "key",
+              "value": "{{API-Key}}"
+            },
+            {
+              "key": "token",
+              "value": "{{API-Token}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Lists on a Board",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api.trello.com/1/boards/{{Project-1 Board-ID}}/lists?key={{API-Key}}&token={{API-Token}}",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "boards",
+            "{{Project-1 Board-ID}}",
+            "lists"
+          ],
+          "query": [
+            {
+              "key": "key",
+              "value": "{{API-Key}}"
+            },
+            {
+              "key": "token",
+              "value": "{{API-Token}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create a new Card on List",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api.trello.com/1/cards?idList={{In-progress List ID}}&key={{API-Key}}&token={{API-Token}}&name=Card1",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "cards"
+          ],
+          "query": [
+            {
+              "key": "idList",
+              "value": "{{In-progress List ID}}"
+            },
+            {
+              "key": "key",
+              "value": "{{API-Key}}"
+            },
+            {
+              "key": "token",
+              "value": "{{API-Token}}"
+            },
+            {
+              "key": "name",
+              "value": "Card1",
+              "type": "text"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update a Card",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api.trello.com/1/cards/69f0c63208e2d7beebfaebf6?key={{API-Key}}&token={{API-Token}}&name=card6&desc=Heba&closed=true",
+          "protocol": "https",
+          "host": [
+            "api",
+            "trello",
+            "com"
+          ],
+          "path": [
+            "1",
+            "cards",
+            "69f0c63208e2d7beebfaebf6"
+          ],
+          "query": [
+            {
+              "key": "key",
+              "value": "{{API-Key}}"
+            },
+            {
+              "key": "token",
+              "value": "{{API-Token}}"
+            },
+            {
+              "key": "name",
+              "value": "card6",
+              "type": "text"
+            },
+            {
+              "key": "desc",
+              "value": "Heba",
+              "type": "text"
+            },
+            {
+              "key": "closed",
+              "value": "true",
+              "type": "text"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a Card",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
